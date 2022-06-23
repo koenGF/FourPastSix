@@ -30,7 +30,7 @@ function _draw() --after update
 		if (player.score > 1000) then
 			print("game over! you won!",23,44,14)
 		else
-			print("game over!",44,44,14)
+			print("game over!",40,44,14)
 		end
 		print("best education", 35,2,12)
 		print("your score:"..player.score,34,54,7)
@@ -95,9 +95,10 @@ end
 --cave
 function make_cave()
 	cave={{["top"]=5,["btm"]=119}}
-	top=45 --ceiling max y
-	btm=85 --floor max y
+	top=43 --ceiling min y
+	btm=87 --floor max y
 end
+
 function update_cave()
 --remove back off cave
 	if (#cave>player.speed) then
@@ -105,6 +106,7 @@ function update_cave()
 		del(cave,cave[1])
 		end
 	end
+
 	--generate more cave
 	while (#cave<128) do
 		local col={}
