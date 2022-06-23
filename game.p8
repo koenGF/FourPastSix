@@ -4,7 +4,7 @@ __lua__
 --four past six
 --by kgf
 
-function _init() --game start
+function _init() --initialization
 	game_over=false
 	make_player()
 	make_cave()
@@ -25,6 +25,7 @@ function _draw() --after update
 	draw_player()
 	draw_cave()
 	
+--code to be executed when the game is over
 	if (game_over) then
 		if (player.score > 1000) then
 			print("game over! you won!",23,44,14)
@@ -41,16 +42,17 @@ function _draw() --after update
 end
 -->8
 --player
+--all code related to the player character
 function make_player()
 	player={}
-	player.x=24 --position
-	player.y=60
+	player.x=24 --x position
+	player.y=60 --y position
 	player.dy=0 --fall speed
-	player.rise=1 --sprites
-	player.fall=2
-	player.dead=3
+	player.rise=1 --rising sprite
+	player.fall=2 -- falling sprite
+	player.dead=3 -- game over sprite
 	player.speed=2 --fly speed
-	player.score=0
+	player.score=0 -- score
 end
 
 function draw_player()
@@ -64,12 +66,12 @@ function draw_player()
 end
 
 function move_player()
-	gravity=0.2 --bigger means more gravity!
-	player.dy+=gravity --add gravity
+	gravity=0.2 --gravity strength
+	player.dy+=gravity --add gravitiy to fall speed
 
 --jump
 if (btnp(2)) then
-	player.dy-=5
+	player.dy-=5 --jump height
 	sfx(0)
 end
 	
@@ -93,17 +95,17 @@ end
 --cave
 function make_cave()
 	cave={{["top"]=5,["btm"]=119}}
-	top=45 --how low can the ceiling go?
-	btm=85 --how high can the floor get?
+	top=45 --ceiling max y
+	btm=85 --floor max y
 end
 function update_cave()
---remove the back of the cave
+--remove back off cave
 	if (#cave>player.speed) then
 		for i=1,player.speed do
 		del(cave,cave[1])
 		end
 	end
-	--add more cave
+	--generate more cave
 	while (#cave<128) do
 		local col={}
 		local up=flr(rnd(7)-3)
@@ -115,8 +117,8 @@ function update_cave()
 end
 
 function draw_cave()
-	top_color=5 --play with these!
-	btm_color=5 --choose your own colors!
+	top_color=4 
+	btm_color=4 
 	for i=1,#cave do
 		line(i-1,0,i-1,cave[i].top,top_color)
 		line(i-1,127,i-1,cave[i].btm,btm_color)
