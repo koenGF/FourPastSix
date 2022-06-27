@@ -21,7 +21,7 @@ function _update() --every frame
 end
 
 function _draw() --after update
-	cls()
+	cls(2)
 	draw_player()
 	draw_cave()
 	
@@ -119,11 +119,15 @@ function update_cave()
 end
 
 function draw_cave()
-	top_color=4 
-	btm_color=4 
+	top_highlight_color=5
+	btm_highlight_color=5
+	top_color=1
+	btm_color=1
 	for i=1,#cave do
-		line(i-1,0,i-1,cave[i].top,top_color)
-		line(i-1,127,i-1,cave[i].btm,btm_color)
+		line(i-1,0,i-1,cave[i].top,top_highlight_color)
+		line(i-1,0,i-1,cave[i].top-5,top_color)
+		line(i-1,127,i-1,cave[i].btm,btm_highlight_color)
+		line(i-1,127,i-1,cave[i].btm+5,btm_color)
 	end
 end
 __gfx__
